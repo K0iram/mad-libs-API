@@ -9,7 +9,7 @@ const setUser = require('./concerns/set-current-user');
 const setModel = require('./concerns/set-mongoose-model');
 
 const index = (req, res, next) => {
-  Page.find()
+  Page.find({_owner: req.user._id})
     .then(pages => res.json({
       pages: pages.map((e) =>
         e.toJSON({ virtuals: true, user: req.user })),
@@ -48,8 +48,8 @@ module.exports = controller({
   create,
   destroy,
 }, { before: [
-  { method: setUser, only: ['index', 'show', 'destroy'] },
-  { method: authenticate, except: ['index', 'show'] },
-  { method: setModel(Page), only: ['show'] },
-  { method: setModel(Page, { forUser: true }), only: ['destroy'] },
+    { method: setUser, only: ['index', 'show'] },
+    { method: authenticate },
+    { method: setModel(Page, { forUser: true }), only: ['show'] },
+    { method: setModel(Page, { forUser: true }), only: ['update', 'destroy'] },
 ], });

@@ -46,6 +46,12 @@ const makeErrorHandler = (res, next) =>
 
 const signup = (req, res, next) => {
   let credentials = req.body.credentials;
+
+  if (credentials.password !== credentials.password_confirmation) {
+    res.status(new Error(500)).json()
+    return
+  }
+
   let user = { email: credentials.email, password: credentials.password };
   getToken()
     .then(token => user.token = token)
