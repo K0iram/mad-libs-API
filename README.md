@@ -40,6 +40,8 @@ CLIENT_ORIGIN=https://<github-username>.github.io`).
 
 My approach to this project started with brain storming ideas I thought would be fun to build. After deciding on a mad lib game I came up with how my backend was going to be structured. My ERD is users have many pages made thru templates.
 
+                          Users ----< Templates >---- Pages
+
 By using the scaffold generator described below I was able to essentially have the backend up and running in just a few hours.
 I created my own data to see my delevopment database with and was able to start testing immediatly
 
